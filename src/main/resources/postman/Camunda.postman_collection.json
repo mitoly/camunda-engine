@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "6ac99050-a560-43d4-8e64-2783890a86da",
+		"name": "Camunda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "发起流程",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"assignee\": \"zhangsan\",\n    \"processDefinitionKey\": \"Process_test\",\n    \"businessKey\": \"T002\",\n    \"variableMap\": {\n        \"testId\": \"helloworld\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/process/start-process"
+			},
+			"response": []
+		},
+		{
+			"name": "查看代办",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "localhost:8080/process/search-task/zhangsan"
+			},
+			"response": []
+		},
+		{
+			"name": "查看已办",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "localhost:8080/process/search-history/zhangsan"
+			},
+			"response": []
+		},
+		{
+			"name": "审批流程",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"assignee\": \"lisi3\",\n    \"processDefinitionId\": \"Process_test:1:557ae0f9-731f-11ed-ab6d-56871403bad0\",\n    \"processInstanceId\": \"5d7eb2e0-7322-11ed-9ea3-56871403bad0\",\n    \"taskId\": \"cc1825e2-7391-11ed-8abe-42cfb542338d\",\n    \"comment\": \"同意\",\n    \"variableMap\": {\n        \"leader\": \"lisi3\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/process/complete-task"
+			},
+			"response": []
+		},
+		{
+			"name": "查看任务审批意见",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "localhost:8080/process/search-task-comment/314c9d5b-7391-11ed-8b84-42cfb542338d"
+			},
+			"response": []
+		},
+		{
+			"name": "查看流程审批意见",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "demo",
+						"username": "demo"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"url": "localhost:8080/process/search-process-comment/5d7eb2e0-7322-11ed-9ea3-56871403bad0"
+			},
+			"response": []
+		},
+		{
+			"name": "驳回任务",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"assignee\": \"zhangsan\",\n    \"processInstanceId\": \"5d7eb2e0-7322-11ed-9ea3-56871403bad0\",\n    \"taskId\": \"7fea0026-7390-11ed-8b84-42cfb542338d\",\n    \"activityId\": \"Activity_0fu847q\",\n    \"comment\": \"我驳回了\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/process/reject-task"
+			},
+			"response": []
+		},
+		{
+			"name": "删除流程",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"processInstanceId\": \"5d7eb2e0-7322-11ed-9ea3-56871403bad0\",\n    \"comment\": \"不想申请了\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/process/remove-process"
+			},
+			"response": []
+		}
+	]
+}
