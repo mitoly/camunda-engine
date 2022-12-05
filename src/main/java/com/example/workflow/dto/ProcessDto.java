@@ -9,8 +9,10 @@ public class ProcessDto {
     /**当前审批人*/
     private String assignee;
 
-    /**流程定义Id*/
+    /**流程定义Key*/
     private String processDefinitionKey;
+    /**流程定义Id*/
+    private String processDefinitionId;
 
     /**流程实例Id*/
     private String processInstanceId;

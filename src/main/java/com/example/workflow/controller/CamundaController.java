@@ -8,6 +8,7 @@ import org.camunda.bpm.engine.runtime.ActivityInstance;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Comment;
 import org.camunda.bpm.engine.task.Task;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +40,8 @@ public class CamundaController {
         identityService.setAuthenticatedUserId(processDto.getAssignee());
         //通过Key
         ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processDefinitionKey, businessKey, processDto.getVariableMap());
-        return ResultVo.success(processInstance);
+        BeanUtils.copyProperties(processInstance, processDto);
+        return ResultVo.success(processDto);
     }
 
     /**
@@ -72,7 +74,6 @@ public class CamundaController {
 
     /**
      * 查询历史任务
-     * @return
      */
     @PostMapping("/search-history/{assignee}")
     public ResultVo searchHistory(@PathVariable("assignee") String assignee) {
